@@ -9,6 +9,10 @@ var currentWSpeed=$("#wind-speed");
 var currentUvindex= $("#uv-index");
 var sCity=[];
 
+//Button Fuctions
+$("#search-button").on("click",showWeather);
+$("#clear-history").on("click",clearHistory);
+
 //Set up the API key
 var APIKey="a0aca8a89948154a4182dcecc780b513";
 
@@ -89,9 +93,16 @@ function currentWeather(city){
     });
 }
 
+//Clear Search History
+function clearHistory(event){
+    event.preventDefault();
+    sCity=[];
+    localStorage.removeItem("cityname");
+    document.location.reload();
 
-//Button Fuctions
-$("#search-button").on("click",showWeather);
+}
+
+
 
 
 
