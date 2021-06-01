@@ -18,3 +18,25 @@ body {
     text-align: center;
     padding: 5px;
 }
+.row {
+    margin-top: 5px;
+}
+
+h3{
+    font-weight: bold;
+}
+.forecast{
+    
+    font-size: 0.9em;
+}
+span{
+    font-size: 1em;
+}
+li:hover{
+    background-color: lightslategray;
+    text-decoration: underline;
+}
+
+li.list-group-item {
+    margin: 5px;
+}
