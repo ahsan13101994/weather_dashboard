@@ -15,6 +15,7 @@ $("#clear-history").on("click",clearHistory);
 $(document).on("click",showPastSearch);
 $(window).on("load",loadlastCity);
 
+
 //Set up the API key
 var APIKey="a0aca8a89948154a4182dcecc780b513";
 
@@ -95,6 +96,14 @@ function currentWeather(city){
     });
 }
 
+//Add to search History list
+function addToList(c){
+    var listEl= $("<li>"+c.toUpperCase()+"</li>");
+    $(listEl).attr("class","list-group-item");
+    $(listEl).attr("data-value",c.toUpperCase());
+    $(".list-group").append(listEl);
+}
+
 //Clear Search History
 function clearHistory(event){
     event.preventDefault();
@@ -127,6 +136,34 @@ function loadlastCity(){
     }
 
 }
+
+// Show Weather Forcast in columns (current + 5 days)
+function forecast(cityid){
+    var dayover= false;
+    var queryforcastURL="https://api.openweathermap.org/data/2.5/forecast?id="+cityid+"&appid="+APIKey;
+    $.ajax({
+        url:queryforcastURL,
+        method:"GET"
+    }).then(function(response){
+        
+        for (i=0;i<5;i++){
+            var date= new Date((response.list[((i+1)*8)-1].dt)*1000).toLocaleDateString();
+            var iconcode= response.list[((i+1)*8)-1].weather[0].icon;
+            var iconurl="https://openweathermap.org/img/wn/"+iconcode+".png";
+            var tempK= response.list[((i+1)*8)-1].main.temp;
+            var tempF=(((tempK-273.5)*1.80)+32).toFixed(2);
+            var humidity= response.list[((i+1)*8)-1].main.humidity;
+        
+            $("#forecastDate"+i).html(date);
+            $("#forecastImg"+i).html("<img src="+iconurl+">");
+            $("#forecastTemp"+i).html(tempF+"&#8457");
+            $("#forecastHumidity"+i).html(humidity+"%");
+        }
+        
+    });
+}
+
+
 
 
 
