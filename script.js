@@ -12,6 +12,8 @@ var sCity=[];
 //Button Fuctions
 $("#search-button").on("click",showWeather);
 $("#clear-history").on("click",clearHistory);
+$(document).on("click",showPastSearch);
+$(window).on("load",loadlastCity);
 
 //Set up the API key
 var APIKey="a0aca8a89948154a4182dcecc780b513";
@@ -102,6 +104,29 @@ function clearHistory(event){
 
 }
 
+function showPastSearch(event){
+    var liEl=event.target;
+    if (event.target.matches("li")){
+        city=liEl.textContent.trim();
+        currentWeather(city);
+    }
+
+}
+
+// Last City Call + Local storage
+function loadlastCity(){
+    $("ul").empty();
+    var sCity = JSON.parse(localStorage.getItem("cityname"));
+    if(sCity!==null){
+        sCity=JSON.parse(localStorage.getItem("cityname"));
+        for(i=0; i<sCity.length;i++){
+            addToList(sCity[i]);
+        }
+        city=sCity[i-1];
+        currentWeather(city);
+    }
+
+}
 
 
 
