@@ -15,6 +15,14 @@ $("#clear-history").on("click",clearHistory);
 $(document).on("click",showPastSearch);
 $(window).on("load",loadlastCity);
 
+function find(c){
+    for (var i=0; i<sCity.length; i++){
+        if(c.toUpperCase()===sCity[i]){
+            return -1;
+        }
+    }
+    return 1;
+}
 
 //Set up the API key
 var APIKey="a0aca8a89948154a4182dcecc780b513";
@@ -95,7 +103,6 @@ function currentWeather(city){
 
     });
 }
-
 //Add to search History list
 function addToList(c){
     var listEl= $("<li>"+c.toUpperCase()+"</li>");
